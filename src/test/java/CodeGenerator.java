@@ -62,6 +62,9 @@ public class CodeGenerator {
      * @param modelName 自定义的 Model 名称
      */
     public static void genCodeByCustomModelName(String tableName, String modelName) {
+        if(StringUtils.isEmpty(modelName) && StringUtils.isNotEmpty(REDUCE_TABLE_PREFIX)){
+            modelName = getUpperCamel(tableName.replaceAll(String.format("^((?i)%s)", REDUCE_TABLE_PREFIX), ""));
+        }
         genModelAndMapper(tableName, modelName);
         genService(tableName, modelName);
         genController(tableName, modelName);
