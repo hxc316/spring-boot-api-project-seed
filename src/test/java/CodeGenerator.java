@@ -35,7 +35,10 @@ public class CodeGenerator {
 
     private static final String AUTHOR = "CodeGenerator";//@author
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
-
+    /**
+     * 默认生成的Model名称,需要去掉的表名前缀,不区分大小写
+     */
+    private static final String REDUCE_TABLE_PREFIX = "ec_";
     public static void main(String[] args) {
         genCode("game");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
