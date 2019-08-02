@@ -38,9 +38,9 @@ public class CodeGenerator {
     /**
      * 默认生成的Model名称,需要去掉的表名前缀,不区分大小写
      */
-    private static final String REDUCE_TABLE_PREFIX = "ec_";
+    private static final String REDUCE_TABLE_PREFIX = "";
     public static void main(String[] args) {
-        genCode("game");
+        genCode("user");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -227,4 +227,17 @@ public class CodeGenerator {
         return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
     }
 
+    /**
+     * 获取字符串的大骆驼峰形式
+     */
+    private static String getUpperCamel(String str) {
+        //如果全大写，且包含下划线
+        if (str.replaceAll("[A-Z]+", "").equals(str) && str.contains("_"))
+            return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, str);
+        //如果不包含下划线
+        if (!str.contains("_") && str.length() > 2)
+            return str.toUpperCase().charAt(0) + str.substring(1);
+        //如果不全为大写，且包含下划线
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, str.toLowerCase());
+    }
 }
